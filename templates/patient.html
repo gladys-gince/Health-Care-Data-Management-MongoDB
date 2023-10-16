@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@600;700;800&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Gabarito', sans-serif;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            max-height: 100vh;
+            max-width: 100vw;
+        }
+        .patient-card{
+            height: 90vh;
+            width: 80vw;
+            padding: 10px;
+            padding-left: 20px;
+            background: linear-gradient(to bottom,#01a189,#03ffd9);
+            border-radius: 8px;
+        }
+        #layer1,#layer2,#layer3{
+            display: flex;
+            align-items: center;
+            gap: 10rem;
+        }
+        #layer2{
+            gap: 6rem;
+            height: 200px;
+        }
+        #layer3{
+            gap: 5rem;
+            height: 200px;
+        }
+        .profile-img{
+            border-radius:50%;
+            border: 2px solid #000;
+            height: 200px;
+            width: 200px;
+            background-color: grey;
+            margin-left: 70px;
+            position: relative;
+            top: 20px;
+            left: 30px;
+        }
+        .heading-span{
+            font-size: 1.5rem;
+        }
+        .ans-span{
+            font-size: 1.2rem;
+            padding-left: 5px;
+            text-transform: capitalize;
+        }
+    </style>
+
+</head>
+<body>
+    {% set patient_data = data.patient_data | safe %}
+    {% set patient_data_dict = patient_data | tojson | safe %}
+    <section class="patient-card">
+        <div id="layer1">
+            <img src="" alt="profile-img" class="profile-img">
+            <div>
+                <span class="heading-span">ID : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['id'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Name : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['name'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Sex : </span> <br>
+                <span class="ans-span gender">{{ data['patient_data']['sex'] }}</span>
+            </div>
+        </div>
+        <div id="layer2">
+            <div>
+                <span class="heading-span">Height : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['height'] }} cm</span>
+            </div>
+            <div>
+                <span class="heading-span">Weight : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['weight'] }} kg</span>
+            </div>
+            <div>
+                <span class="heading-span">BMI : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['BMI'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Smoker : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['smoker'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Diabetes : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['diabetes'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Dyslipidemia : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['dyslipidemia'] }}</span>
+            </div>
+        </div>
+        <div id="layer3">
+            <div>
+                <span class="heading-span">Hypertension : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['hypertension'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Physical Inactivity : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['physical_inactivity'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Family History CVD : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['family_history_CVD'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Stress : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['stress'] }}</span>
+            </div>
+            <div>
+                <span class="heading-span">Alcohol Intake : </span> <br>
+                <span class="ans-span">{{ data['patient_data']['alcohol_intake'] }}</span>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    const gender = document.getElementsByClassName('gender')[0];
+    if(gender.innerHTML == 'M'){
+        document.getElementsByClassName('profile-img')[0].src = "{{ url_for('static', filename='images/men-profile.jpeg') }}"
+    } 
+    else{
+        document.getElementsByClassName('profile-img')[0].src = "{{ url_for('static', filename='images/women-profile.jpeg') }}"
+    }
+</script>
+</html>
